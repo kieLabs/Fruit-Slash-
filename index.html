@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#071d22">
+  <meta name="description" content="FRUIT SLASH – GamerKie Edition. Slice fruits, avoid bombs, master combos and climb endless levels in a fast-paced mobile arcade game.">
+  <title>FRUIT SLASH – GamerKie Edition</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230d3939'/%3E%3Ctext x='50' y='69' text-anchor='middle' font-size='62' fill='%2379efd1' font-family='Arial' font-weight='bold'%3EG%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="site-header">
+    <a class="brand-lockup" href="#" aria-label="GamerKie home">
+      <span class="brand-mark">G</span><span class="brand-name">GAMER<span>KIE</span></span>
+    </a>
+    <div class="wallet-row">
+      <button class="header-fullscreen" data-action="fullscreen" aria-label="Toggle fullscreen">⛶</button>
+      <div class="wallet-pill"><span>🪙</span><b id="coin-count">120</b></div>
+      <div class="wallet-pill gem-pill"><span>💎</span><b id="gem-count">5</b></div>
+    </div>
+  </header>
+
+  <main class="page-wrap">
+    <section class="game-frame" id="game-frame" aria-label="Fruit Slash game">
+      <canvas id="game-canvas" aria-label="Slice flying fruits by swiping on the screen"></canvas>
+
+      <div class="game-hud hidden" id="game-hud">
+        <div class="hud-score"><small>SCORE</small><strong id="hud-score">0</strong><span>BEST <b id="hud-best">0</b></span></div>
+        <div class="hud-level"><small>LEVEL <b id="hud-level">1</b></small><strong id="hud-target">0 / 450</strong><small class="hud-objective" id="hud-objective">REACH THE SCORE TARGET</small><div class="target-track"><i id="target-progress"></i></div></div>
+        <div class="hud-right"><button class="icon-button pause-button" id="pause-button" aria-label="Pause">Ⅱ</button><div class="hud-lives" id="hud-lives">♥ ♥ ♥</div><div class="hud-timer hidden" id="hud-timer">60</div></div>
+        <div class="combo-toast" id="combo-toast"></div>
+        <div class="power-bar" id="power-bar">
+          <button class="power-button" data-power="freeze"><span>❄</span><small>Freeze</small></button>
+          <button class="power-button" data-power="double"><span>×2</span><small>Double</small></button>
+          <button class="power-button" data-power="frenzy"><span>⚡</span><small>Frenzy</small></button>
+          <button class="power-button" data-power="slow"><span>◷</span><small>Slow</small></button>
+          <button class="power-button" data-power="mega"><span>✦</span><small>Mega</small></button>
+          <button class="power-button" data-power="life"><span>♥</span><small>Life</small></button>
+          <button class="power-button" data-power="blade"><span>⚔</span><small>Blade</small></button>
+        </div>
+      </div>
+
+      <section class="screen main-screen" id="main-screen">
+        <div class="menu-topline"><span class="eyebrow"><i></i> GAMERKIE ORIGINAL</span><span class="version-tag">ARCADE 01</span></div>
+        <div class="hero-brand">
+          <div class="fruit-orbit"><span class="orbit-fruit fruit-a">🍊</span><span class="orbit-fruit fruit-b">🍓</span><span class="orbit-fruit fruit-c">🍉</span><span class="blade-mark">╱</span></div>
+          <p class="hero-kicker">SLICE. SCORE. REPEAT.</p>
+          <h1>FRUIT <em>SLASH</em></h1>
+          <p class="hero-subtitle">Slice Fruits. Master the Blade.</p>
+        </div>
+        <button class="level-preview" data-panel="levels"><div><small>YOUR JOURNEY · SELECT LEVEL</small><strong>LEVEL <b id="menu-level">1</b></strong></div><div class="level-preview-right"><span class="level-dot"></span><span id="menu-band">ROOKIE</span><b>↗</b></div></button>
+        <button class="primary-button play-button" data-action="play"><span>PLAY NOW</span><b>→</b></button>
+        <div class="mode-label">CHOOSE YOUR MODE</div>
+        <div class="mode-grid">
+          <button class="mode-card selected" data-mode="classic"><span>🍉</span><b>CLASSIC</b><small>3 LIVES</small></button>
+          <button class="mode-card" data-mode="arcade"><span>⚡</span><b>ARCADE</b><small>60 SECONDS</small></button>
+          <button class="mode-card" data-mode="zen"><span>🌸</span><b>ZEN</b><small>NO BOMBS</small></button>
+          <button class="mode-card" data-mode="survival"><span>🔥</span><b>SURVIVAL</b><small>ENDLESS</small></button>
+          <button class="mode-card mode-challenge" data-mode="challenge"><span>🎯</span><b>CHALLENGE</b><small>MISSIONS</small></button>
+        </div>
+        <nav class="menu-nav" aria-label="Game menu">
+          <button data-panel="blades"><span>⚔</span>BLADES</button><button data-panel="backgrounds"><span>🌌</span>WORLDS</button><button data-panel="shop"><span>🛍</span>SHOP</button><button data-panel="missions"><span>🎁</span>MISSIONS</button>
+          <button data-panel="achievements"><span>🏆</span>AWARDS</button><button data-panel="stats"><span>📊</span>STATS</button><button data-panel="settings"><span>⚙</span>SETTINGS</button><button data-panel="help"><span>✦</span>HOW TO</button>
+        </nav>
+        <p class="menu-footnote">A GAMERKIE ARCADE EXPERIENCE <span>•</span> v1.0</p>
+      </section>
+
+      <section class="screen panel-screen hidden" id="panel-screen">
+        <div class="panel-header"><button class="back-button" data-action="close-panel">←</button><div><small>GAMERKIE ARCADE</small><h2 id="panel-title">COLLECTION</h2></div><span class="panel-balance">🪙 <b id="panel-coins">120</b></span></div>
+        <div class="panel-content" id="panel-content"></div>
+      </section>
+
+      <section class="screen pause-screen hidden" id="pause-screen">
+        <div class="pause-card"><div class="pause-symbol">Ⅱ</div><p class="eyebrow">TAKE A BREATHER</p><h2>GAME PAUSED</h2><button class="primary-button" data-action="resume">RESUME <b>→</b></button><div class="pause-actions"><button data-action="restart">↻ RESTART</button><button data-action="settings">⚙ SOUND</button><button data-action="help">? HOW TO</button><button data-action="menu">⌂ MAIN MENU</button></div></div>
+      </section>
+
+      <section class="screen result-screen hidden" id="result-screen">
+        <div class="result-card"><div class="result-icon" id="result-icon">🏆</div><p class="eyebrow" id="result-eyebrow">LEVEL COMPLETE</p><h2 id="result-title">LEVEL CLEARED!</h2><div class="star-row" id="result-stars">★ ★ ★</div><div class="result-score"><small>FINAL SCORE</small><strong id="result-score">0</strong></div><div class="result-grid" id="result-grid"></div><div class="reward-row" id="reward-row">🪙 +20 <span>💎 +0</span></div><div class="result-actions"><button class="primary-button" data-action="next">NEXT LEVEL <b>→</b></button><button class="secondary-button" data-action="retry">RETRY</button><button class="text-button" data-action="menu">MAIN MENU</button></div></div>
+      </section>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </section>
+    <footer class="page-footer"><span>© 2026 GAMERKIE</span><span>MADE FOR THE LOVE OF ARCADE</span><span>SLICE. SCORE. REPEAT.</span></footer>
+  </main>
+  <script type="module" src="./game.js"></script>
+</body>
+</html>
